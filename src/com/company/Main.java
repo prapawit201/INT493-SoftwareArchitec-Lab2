@@ -12,12 +12,14 @@ public class Main {
     private static ExecutorService executorService = Executors.newFixedThreadPool(2);
 
     public static void main(String[] args) throws Exception {
+
             Scanner scanner = new Scanner(System.in);
             System.out.print("Connecting port : ");
             int port = Integer.parseInt(scanner.nextLine());
             ServerSocket serverSocket = new ServerSocket();
             serverSocket.bind(new InetSocketAddress(port));//open port 8080
             System.out.println("Listening on port : " + port + " \nServer started ... \n ");
+
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 System.out.printf("Client Connected %s:%d\n", clientSocket.getInetAddress().getHostAddress()
@@ -27,6 +29,7 @@ public class Main {
                 clients.add(clientThread);
                 executorService.execute(clientThread);
             }
+
     }
 }
 
@@ -42,6 +45,7 @@ class  ClientHandler implements Runnable {
 
     @Override
     public void run() {
+
         try {
             Scanner sc = new Scanner(clientSocket.getInputStream());
             while (sc.hasNextLine()) {

@@ -23,7 +23,9 @@ public class ServerConnection implements Runnable {
     @Override
     public void run() {
         this.serverSocket = serverSocket;
+        
         while (true) {
+
             try {
                 String command = inMessage.readLine();
                 System.out.print("user port : " + serverSocket.getLocalPort() + " -> : " + command + "\n");
