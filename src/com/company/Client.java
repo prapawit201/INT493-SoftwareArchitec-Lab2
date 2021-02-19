@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) throws Exception {
-
+        
         Scanner userHost = new Scanner(System.in);
         System.out.print("Please input IP : ");
         String host = userHost.nextLine();
