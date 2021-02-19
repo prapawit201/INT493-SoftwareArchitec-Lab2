@@ -10,28 +10,31 @@ public class Client {
         Scanner userHost = new Scanner(System.in);
         System.out.print("Please input IP : ");
         String host = userHost.nextLine();
+        System.out.print("Please input Port : ");
+        int port = Integer.parseInt(userHost.nextLine());
         Socket clientSocket = new Socket();
         System.out.println("Connecting ...");
-        clientSocket.connect(new InetSocketAddress(host, 8080));
+
+        clientSocket.connect(new InetSocketAddress(host, port));
         System.out.printf("Connected from port %d\n",clientSocket.getLocalPort());
 
-        ServerConnection serverCon = new ServerConnection(clientSocket);
+        ServerConnection connection = new ServerConnection(clientSocket);
 
         Scanner userInput = new Scanner(System.in);
 
-        new Thread(serverCon).start();
+        new Thread(connection).start();
         System.out.print("message : ");
         while (true) {
 
             String cmd  = userInput.nextLine();
             if (cmd.equalsIgnoreCase("close")) {
-                String data = cmd + "\n";
-                clientSocket.getOutputStream().write(data.getBytes());
+                String message = cmd + "\n";
+                clientSocket.getOutputStream().write(message.getBytes());
                 clientSocket.getOutputStream().flush();
                 break;
             }
-            String data = cmd + "\n";
-            clientSocket.getOutputStream().write(data.getBytes());
+            String message = cmd + "\n";
+            clientSocket.getOutputStream().write(message.getBytes());
             clientSocket.getOutputStream().flush();
         }
         clientSocket.close();
