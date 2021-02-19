@@ -23,7 +23,7 @@ public class ServerConnection implements Runnable {
     @Override
     public void run() {
         this.serverSocket = serverSocket;
-        
+
         while (true) {
 
             try {
